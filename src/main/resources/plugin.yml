@@ -1,0 +1,14 @@
+name: GlobeEssentials
+version: '1'
+main: net.globemc.multicody10.globeEssentials.GlobeEssentials
+api-version: '1.21'
+authors: [ Multicody10 ]
+description: Various essential functions for GlobeMC
+website: https://www.globemc.net
+folia-supported: true
+commands:
+  map:
+    description: Sends the player a link to the map
+    usage: "Usage: /<command>"
+    permission: globeessentials.map
+    permission-message: You do not have permission to use this command.
