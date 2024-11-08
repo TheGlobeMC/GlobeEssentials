@@ -2,7 +2,7 @@ name: GlobeEssentials
 version: '1'
 main: net.globemc.multicody10.globeEssentials.Main
 api-version: '1.21'
-authors: [ Multicody10 ]
+authors: [ Multicody10, VRILGQD ]
 description: Various essential functions for GlobeMC
 website: https://www.globemc.net
 folia-supported: true
