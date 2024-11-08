@@ -1,6 +1,6 @@
 name: GlobeEssentials
 version: '1'
-main: net.globemc.multicody10.globeEssentials.GlobeEssentials
+main: net.globemc.multicody10.globeEssentials.Main
 api-version: '1.21'
 authors: [ Multicody10 ]
 description: Various essential functions for GlobeMC

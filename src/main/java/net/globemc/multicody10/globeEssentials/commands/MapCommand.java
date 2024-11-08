@@ -1,6 +1,5 @@
 package net.globemc.multicody10.globeEssentials.commands;
 
-import net.globemc.multicody10.globeEssentials.GlobeEssentials;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
