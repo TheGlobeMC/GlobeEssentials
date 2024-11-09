@@ -1,5 +1,5 @@
 name: GlobeEssentials
-version: '1.0-SNAPSHOT'
+version: '1'
 main: net.globemc.multicody10.globeessentials.Main
 api-version: '1.21'
 authors: [ Multicody10, VRILGQD ]
