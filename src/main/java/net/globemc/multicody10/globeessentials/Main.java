@@ -1,7 +1,7 @@
 package net.globemc.multicody10.globeessentials;
 
+import net.globemc.multicody10.globeessentials.commands.HelpCommand;
 import net.globemc.multicody10.globeessentials.commands.MapCommand;
-import net.globemc.multicody10.globeessentials.compass.CompassNorth;
 import net.globemc.multicody10.globeessentials.compass.CompassUI;
 import net.globemc.multicody10.globeessentials.listeners.CooldownListener;
 import net.globemc.multicody10.globeessentials.listeners.VoidDeathListener;
@@ -29,6 +29,7 @@ public final class Main extends JavaPlugin {
     void initCommands(){
         getLogger().info("Initializing Commands...");
         Objects.requireNonNull(this.getCommand("map")).setExecutor(new MapCommand(this));
+        Objects.requireNonNull(this.getCommand("map")).setExecutor(new HelpCommand(this));
         getLogger().info("Initialized Commands.");
     }
 

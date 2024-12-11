@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-import static net.globemc.multicody10.globeessentials.utils.GlobeEssentialsUtils.mapPrefix;
+import static net.globemc.multicody10.globeessentials.utils.GlobeEssentialsUtils.globePrefix;
 
 public class MapCommand implements CommandExecutor {
     Plugin plugin;
@@ -26,7 +26,7 @@ public class MapCommand implements CommandExecutor {
         if(sender instanceof Player){
             Player player = ((Player) sender).getPlayer();
             assert player != null;
-            TextComponent message = new TextComponent(mapPrefix + ChatColor.LIGHT_PURPLE + "Here is your link!");
+            TextComponent message = new TextComponent(globePrefix + ChatColor.LIGHT_PURPLE + "Here is your link!");
             message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://map.globemc.net/#minecraft_overworld;flat;"
                     + player.getLocation().getBlockX() + "," + player.getLocation().getBlockY() + "," + player.getLocation().getBlockZ()
                     + ";8"));

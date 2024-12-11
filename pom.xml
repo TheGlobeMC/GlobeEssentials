@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.globemc.multicody10</groupId>
-    <artifactId>GlobeEssentials</artifactId>
+    <artifactId>globeessentials</artifactId>
     <version>1</version>
     <packaging>jar</packaging>
 
@@ -60,6 +60,10 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>glaremasters repo</id>
+            <url>https://repo.glaremasters.me/repository/towny/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -68,6 +72,17 @@
             <artifactId>paper-api</artifactId>
             <version>1.21.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.palmergames.bukkit.towny</groupId>
+            <artifactId>towny</artifactId>
+            <version>0.101.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.globemc.multicody10</groupId>
+            <artifactId>globeessentials</artifactId>
+            <version>1</version>
         </dependency>
     </dependencies>
 </project>
