@@ -29,7 +29,7 @@ public final class Main extends JavaPlugin {
     void initCommands(){
         getLogger().info("Initializing Commands...");
         Objects.requireNonNull(this.getCommand("map")).setExecutor(new MapCommand(this));
-        Objects.requireNonNull(this.getCommand("map")).setExecutor(new HelpCommand(this));
+        Objects.requireNonNull(this.getCommand("help")).setExecutor(new HelpCommand(this));
         getLogger().info("Initialized Commands.");
     }
 
