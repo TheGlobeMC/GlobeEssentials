@@ -23,3 +23,8 @@ commands:
     usage: "Usage: /<command>"
     permission: globeessentials.help
     permission-message: You do not have permission to use this command.
+  recipes:
+    description: Sends the player a link to the recipes page
+    usage: "Usage: /<command>"
+    permission: globeessentials.recipes
+    permission-message: You do not have permission to use this command.
