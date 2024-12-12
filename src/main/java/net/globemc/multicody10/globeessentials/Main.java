@@ -1,8 +1,11 @@
 package net.globemc.multicody10.globeessentials;
 
+import net.globemc.multicody10.globeessentials.commands.CoordinateCommand;
 import net.globemc.multicody10.globeessentials.commands.HelpCommand;
 import net.globemc.multicody10.globeessentials.commands.MapCommand;
+import net.globemc.multicody10.globeessentials.compass.CompassNorth;
 import net.globemc.multicody10.globeessentials.compass.CompassUI;
+import net.globemc.multicody10.globeessentials.listeners.AdvancementListener;
 import net.globemc.multicody10.globeessentials.listeners.CooldownListener;
 import net.globemc.multicody10.globeessentials.listeners.VoidDeathListener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,11 +33,13 @@ public final class Main extends JavaPlugin {
         getLogger().info("Initializing Commands...");
         Objects.requireNonNull(this.getCommand("map")).setExecutor(new MapCommand(this));
         Objects.requireNonNull(this.getCommand("help")).setExecutor(new HelpCommand(this));
+        Objects.requireNonNull(this.getCommand("coordinate")).setExecutor(new CoordinateCommand(this));
         getLogger().info("Initialized Commands.");
     }
 
     void initListeners(){
         getLogger().info("Initializing Listeners...");
+        new AdvancementListener(this);
         new VoidDeathListener(this);
         new CooldownListener(this);
         getLogger().info("Initialized Listeners.");
@@ -42,6 +47,7 @@ public final class Main extends JavaPlugin {
 
     void initCompassAPI(){
         getLogger().info("Initializing Compass Mechanics...");
+        new CompassNorth(this);
         new CompassUI(this);
         getLogger().info("Initialized Listeners.");
     }

@@ -10,8 +10,7 @@ import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.CompassMeta;
 
@@ -105,43 +104,32 @@ public class CompassUI implements Listener {
     }
 
     @EventHandler
-    public void OnPlayerCompass(PlayerInteractEvent e) {
+    public void OnPlayerCompass(PlayerItemHeldEvent e){
         Player player = e.getPlayer();
         ItemStack itemInHand = player.getInventory().getItemInMainHand();
         ItemStack itemInOffhand = player.getInventory().getItemInOffHand();
         ItemStack compass = new ItemStack(Material.COMPASS);
         CompassMeta compassMeta = (CompassMeta) compass.getItemMeta();
-        if ((itemInHand.getType() == Material.COMPASS) || (itemInOffhand.getType() == Material.COMPASS)) {
-            if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                if (player.hasCooldown(Material.COMPASS))
-                    return;
-                assert compassMeta != null;
-                if (!compassMeta.hasLodestone()) {
-                    if (player.getWorld().getEnvironment().equals(World.Environment.NORMAL)) {
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§7[ §f" + yawToFace(player) + " §7| §f" + player.getLocation().getBlockX() + " " + player.getLocation().getBlockY() + " " + player.getLocation().getBlockZ() + " §7| §f" + getBiomeName(player) + " §7]"));
-                        player.setCooldown(Material.COMPASS, 80);
-                    }
-                    if (player.getWorld().getEnvironment().equals(World.Environment.NETHER)) {
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§4[ §c§kUnknown §4| §c" + getBiomeName(player) + " §4]"));
-                        player.setCooldown(Material.COMPASS, 80);
-                    }
-                    if (player.getWorld().getEnvironment().equals(World.Environment.THE_END)) {
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§5[ §d§kUnknown §5| §d" + getBiomeName(player) + " §5]"));
-                        player.setCooldown(Material.COMPASS, 80);
-                    }
-                } else if (compassMeta.hasLodestone()) {
-                    if (player.getWorld().getEnvironment().equals(World.Environment.NORMAL)) {
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§7[ §fLodestone Paired! §7| §f" + getBiomeName(player) + " §7]"));
-                        player.setCooldown(Material.COMPASS, 80);
-                    }
-                    if (player.getWorld().getEnvironment().equals(World.Environment.NETHER)) {
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§4[ §cLodestone Paired! §4| §c" + getBiomeName(player) + " §4]"));
-                        player.setCooldown(Material.COMPASS, 80);
-                    }
-                    if (player.getWorld().getEnvironment().equals(World.Environment.THE_END)) {
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§5[ §dLodestone Paired! §5| §d" + getBiomeName(player) + " §5]"));
-                        player.setCooldown(Material.COMPASS, 80);
-                    }
+        if ((itemInHand.getType() == Material.COMPASS || itemInOffhand.getType() == Material.COMPASS)) {
+            if (!compassMeta.hasLodestone()) {
+                if (player.getWorld().getEnvironment().equals(World.Environment.NORMAL)) {
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§7[ §f" + yawToFace(player) + " §7| §f" + player.getLocation().getBlockX() + " " + player.getLocation().getBlockY() + " " + player.getLocation().getBlockZ() + " §7| §f" + getBiomeName(player) + " §7]"));
+                }
+                if (player.getWorld().getEnvironment().equals(World.Environment.NETHER)) {
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§4[ §c§kUnknown §4| §c" + getBiomeName(player) + " §4]"));
+                }
+                if (player.getWorld().getEnvironment().equals(World.Environment.THE_END)) {
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§5[ §d§kUnknown §5| §d" + getBiomeName(player) + " §5]"));
+                }
+            } else if (compassMeta.hasLodestone()) {
+                if (player.getWorld().getEnvironment().equals(World.Environment.NORMAL)) {
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§7[ §fLodestone Paired! §7| §f" + getBiomeName(player) + " §7]"));
+                }
+                if (player.getWorld().getEnvironment().equals(World.Environment.NETHER)) {
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§4[ §cLodestone Paired! §4| §c" + getBiomeName(player) + " §4]"));
+                }
+                if (player.getWorld().getEnvironment().equals(World.Environment.THE_END)) {
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§5[ §dLodestone Paired! §5| §d" + getBiomeName(player) + " §5]"));
                 }
             }
         }

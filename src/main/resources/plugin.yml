@@ -8,6 +8,11 @@ website: https://www.globemc.net
 folia-supported: true
 softdepend: [Towny]
 commands:
+  coordinate:
+    description: Converts real life coordinates to in-game coordinates.
+    usage: "Usage: /<command>"
+    permission: globeessentials.coordinate
+    permission-message: You do not have permission to use this command.
   map:
     description: Sends the player a link to the map
     usage: "Usage: /<command>"
