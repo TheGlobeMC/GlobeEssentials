@@ -3,6 +3,7 @@ package net.globemc.multicody10.globeessentials;
 import net.globemc.multicody10.globeessentials.commands.CoordinateCommand;
 import net.globemc.multicody10.globeessentials.commands.HelpCommand;
 import net.globemc.multicody10.globeessentials.commands.MapCommand;
+import net.globemc.multicody10.globeessentials.commands.RecipesCommand;
 import net.globemc.multicody10.globeessentials.compass.CompassNorth;
 import net.globemc.multicody10.globeessentials.compass.CompassUI;
 import net.globemc.multicody10.globeessentials.listeners.AdvancementListener;
@@ -33,6 +34,7 @@ public final class Main extends JavaPlugin {
         getLogger().info("Initializing Commands...");
         Objects.requireNonNull(this.getCommand("map")).setExecutor(new MapCommand(this));
         Objects.requireNonNull(this.getCommand("help")).setExecutor(new HelpCommand(this));
+        Objects.requireNonNull(this.getCommand("recipes")).setExecutor(new RecipesCommand(this));
         Objects.requireNonNull(this.getCommand("coordinate")).setExecutor(new CoordinateCommand(this));
         getLogger().info("Initialized Commands.");
     }
