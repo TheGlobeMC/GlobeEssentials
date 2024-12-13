@@ -31,7 +31,7 @@ public class CompassUI implements Listener {
         // Check if the item is a compass (either in main hand or offhand)
         if (itemInHand.getType() == Material.COMPASS || itemInOffhand.getType() == Material.COMPASS) {
             String actionBarMessage = getActionBarMessage(player, itemInHand);
-            scheduler.runAtFixedRate(Main.getPlugin(Main.class), _ -> player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(actionBarMessage)), null, 0L,5L);
+            scheduler.runAtFixedRate(Main.getPlugin(Main.class), _ -> player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(actionBarMessage)),null,0L,5L);
         }
     }
     private String getActionBarMessage(Player player, ItemStack compass) {
