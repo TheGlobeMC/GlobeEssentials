@@ -43,8 +43,9 @@ public final class Main extends JavaPlugin {
     void initListeners(){
         getLogger().info("Initializing Listeners...");
         new AdvancementListener(this);
-        new VoidDeathListener(this);
+        new PlayerVisibilityListener(this);
         new CooldownListener(this);
+        new VoidDeathListener(this);
         getLogger().info("Initialized Listeners.");
     }
 
