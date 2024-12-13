@@ -4,11 +4,11 @@ import net.globemc.multicody10.globeessentials.commands.CoordinateCommand;
 import net.globemc.multicody10.globeessentials.commands.HelpCommand;
 import net.globemc.multicody10.globeessentials.commands.MapCommand;
 import net.globemc.multicody10.globeessentials.commands.RecipesCommand;
-import net.globemc.multicody10.globeessentials.compass.CompassMapVisibility;
 import net.globemc.multicody10.globeessentials.compass.CompassNorth;
 import net.globemc.multicody10.globeessentials.compass.CompassUI;
 import net.globemc.multicody10.globeessentials.listeners.AdvancementListener;
 import net.globemc.multicody10.globeessentials.listeners.CooldownListener;
+import net.globemc.multicody10.globeessentials.listeners.PlayerVisibilityListener;
 import net.globemc.multicody10.globeessentials.listeners.VoidDeathListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
