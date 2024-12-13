@@ -11,7 +11,6 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.plugin.Plugin;
 import xyz.jpenilla.squaremap.api.Squaremap;
 import xyz.jpenilla.squaremap.api.PlayerManager;
 
@@ -38,13 +37,13 @@ public class PlayerVisibilityListener implements Listener {
             // Here, check if you need to execute tasks based on whether the player is holding a Lodestone Compass or not
             if (isLodestoneCompass(player.getInventory().getItemInMainHand())) {
                 // Schedule the task with Folia's region-specific scheduler
-                Bukkit.getScheduler().runTask((Plugin) this, () -> {
+                Bukkit.getScheduler().runTask(Main.getPlugin(Main.class), () -> {
                     // Example: Send action bar message when player is holding a Lodestone Compass
                     playerManager.hide(player.getUniqueId());  // Hide the player on the map
                 });
             } else {
                 // If not a Lodestone Compass, show the player again on the map
-                Bukkit.getScheduler().runTask((Plugin) this, () -> {
+                Bukkit.getScheduler().runTask(Main.getPlugin(Main.class), () -> {
                     playerManager.show(player.getUniqueId());  // Show the player on the map
                 });
             }
