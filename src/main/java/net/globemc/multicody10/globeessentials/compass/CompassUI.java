@@ -1,6 +1,5 @@
 package net.globemc.multicody10.globeessentials.compass;
 
-import io.papermc.paper.threadedregions.scheduler.EntityScheduler;
 import net.globemc.multicody10.globeessentials.Main;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -30,7 +29,6 @@ public class CompassUI implements Listener {
     @EventHandler
     public void onPlayerCompass(PlayerItemHeldEvent e) {
         Player player = e.getPlayer();
-        EntityScheduler scheduler = player.getScheduler();
         ItemStack itemInHand = player.getInventory().getItemInMainHand();
         ItemStack itemInOffhand = player.getInventory().getItemInOffHand();
 
@@ -38,9 +36,9 @@ public class CompassUI implements Listener {
         if (itemInHand.getType() == Material.COMPASS || itemInOffhand.getType() == Material.COMPASS) {
             String actionBarMessage = getActionBarMessage(player, itemInHand);
             // Send the action bar message to the player
-            scheduler.execute((Plugin) this, () -> {
+            player.getScheduler().execute((Plugin) this, () -> {
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(actionBarMessage));
-            }, null, 5L);
+            },null,5L);
         }
     }
 
