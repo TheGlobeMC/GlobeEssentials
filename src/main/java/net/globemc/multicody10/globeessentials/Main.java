@@ -4,6 +4,7 @@ import net.globemc.multicody10.globeessentials.commands.CoordinateCommand;
 import net.globemc.multicody10.globeessentials.commands.HelpCommand;
 import net.globemc.multicody10.globeessentials.commands.MapCommand;
 import net.globemc.multicody10.globeessentials.commands.RecipesCommand;
+import net.globemc.multicody10.globeessentials.compass.CompassMapVisibility;
 import net.globemc.multicody10.globeessentials.compass.CompassNorth;
 import net.globemc.multicody10.globeessentials.compass.CompassUI;
 import net.globemc.multicody10.globeessentials.listeners.AdvancementListener;
