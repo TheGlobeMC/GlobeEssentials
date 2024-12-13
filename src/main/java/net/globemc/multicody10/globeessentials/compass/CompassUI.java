@@ -27,12 +27,13 @@ public class CompassUI implements Listener {
         EntityScheduler scheduler = player.getScheduler();
         ItemStack itemInHand = player.getInventory().getItemInMainHand();
         ItemStack itemInOffhand = player.getInventory().getItemInOffHand();
+        String actionBarMessage = getActionBarMessage(player, itemInHand);
+        Runnable runnable = () -> player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(actionBarMessage));
 
         // Check if the item is a compass (either in main hand or offhand)
         if (itemInHand.getType() == Material.COMPASS || itemInOffhand.getType() == Material.COMPASS) {
-            scheduler.runAtFixedRate(Main.getPlugin(Main.class), (t) -> {
-                String actionBarMessage = getActionBarMessage(player, itemInHand);
-                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(actionBarMessage));
+            scheduler.runAtFixedRate(Main.getPlugin(Main.class), t -> {
+                runnable.run();
             },null,1L,5L);
         }
     }
@@ -104,7 +105,7 @@ public class CompassUI implements Listener {
         float rotation = (player.getLocation().getYaw() % 360 + 360) % 360; // Normalize the yaw to a positive value (0-360)
 
         // Divide the 360° into 8 segments, each representing a direction
-        String[] directions = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
+        String[] directions = {"S", "SW", "W", "NW", "N", "NE", "E", "SE"};
         int index = Math.round(rotation / 45); // Each segment is 45 degrees
 
         return directions[index % 8]; // Wrap around if index >= 8
