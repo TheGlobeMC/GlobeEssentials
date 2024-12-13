@@ -14,7 +14,6 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.plugin.Plugin;
 
 public class CompassUI implements Listener {
     public CompassUI(Main plugin) {
@@ -36,7 +35,7 @@ public class CompassUI implements Listener {
         if (itemInHand.getType() == Material.COMPASS || itemInOffhand.getType() == Material.COMPASS) {
             String actionBarMessage = getActionBarMessage(player, itemInHand);
             // Send the action bar message to the player
-            player.getScheduler().execute((Plugin) this, () -> {
+            player.getScheduler().execute(Main.getPlugin(Main.class), () -> {
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(actionBarMessage));
             },null,5L);
         }
