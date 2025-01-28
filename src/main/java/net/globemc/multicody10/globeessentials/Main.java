@@ -1,5 +1,11 @@
 package net.globemc.multicody10.globeessentials;
 
+import net.globemc.multicody10.globeessentials.chatfilter.api.ChatFilterAPI;
+import net.globemc.multicody10.globeessentials.chatfilter.commands.ChatFilterCommand;
+import net.globemc.multicody10.globeessentials.chatfilter.data.DataManager;
+import net.globemc.multicody10.globeessentials.chatfilter.events.Events;
+import net.globemc.multicody10.globeessentials.chatfilter.filter.Filter;
+import net.globemc.multicody10.globeessentials.chatfilter.filter.Spam;
 import net.globemc.multicody10.globeessentials.commands.CoordinateCommand;
 import net.globemc.multicody10.globeessentials.commands.HelpCommand;
 import net.globemc.multicody10.globeessentials.commands.MapCommand;
@@ -8,27 +14,21 @@ import net.globemc.multicody10.globeessentials.compass.CompassNorth;
 import net.globemc.multicody10.globeessentials.compass.CompassUI;
 import net.globemc.multicody10.globeessentials.listeners.AdvancementListener;
 import net.globemc.multicody10.globeessentials.listeners.CooldownListener;
-import net.globemc.multicody10.globeessentials.listeners.PlayerVisibilityListener;
 import net.globemc.multicody10.globeessentials.listeners.VoidDeathListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
 
 public final class Main extends JavaPlugin {
-
-    /**
-     * Called when the plugin is enabled.
-     * This method performs the initial setup for the plugin, including:
-     * - Initializing the commands by invoking the {@link #initCommands()} method.
-     * - Setting up event listeners by invoking the {@link #initListeners()} method.
-     * - Initializing up the compass API by invoking the {@link #initCompassAPI()} method.
-     */
+    public static ChatFilterAPI chatFilterAPI;
     @Override
     public void onEnable() {
+        saveDefaultConfig();
         getLogger().info("GlobeEssentials is enabled.");
         initCommands();
         initListeners();
         initCompassAPI();
+        initFilterAPI();
     }
 
     void initCommands(){
@@ -43,7 +43,6 @@ public final class Main extends JavaPlugin {
     void initListeners(){
         getLogger().info("Initializing Listeners...");
         new AdvancementListener(this);
-        new PlayerVisibilityListener(this);
         new CooldownListener(this);
         new VoidDeathListener(this);
         getLogger().info("Initialized Listeners.");
@@ -53,11 +52,20 @@ public final class Main extends JavaPlugin {
         getLogger().info("Initializing Compass Mechanics...");
         new CompassNorth(this);
         new CompassUI(this);
-        getLogger().info("Initialized Listeners.");
+        getLogger().info("Initialized Compass Mechanics.");
     }
 
-    @Override
-    public void onDisable() {
-        // TODO: Plugin shutdown logic
+    void initFilterAPI(){
+        getLogger().info("Initializing Chat Filter...");
+        DataManager dataManager = new DataManager(this);
+        Filter filter = new Filter(this);
+        Spam spam = new Spam();
+        chatFilterAPI = new ChatFilterAPI(filter, spam, dataManager);
+        getServer().getPluginManager().registerEvents(new Events(this, filter, dataManager, spam), this);
+        getCommand("chatfilter").setExecutor(new ChatFilterCommand(this, dataManager, filter));
+        getLogger().info("Initialized Chat Filter.");
+    }
+    public ChatFilterAPI getAPI() {
+        return chatFilterAPI;
     }
 }
