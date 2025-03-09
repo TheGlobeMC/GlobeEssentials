@@ -53,7 +53,7 @@ public class AdvancementListener implements Listener {
             if (nation.getKing().equals(victim)) {
                 GlobalRegionScheduler scheduler = Bukkit.getGlobalRegionScheduler();
                 scheduler.execute(Main.getPlugin(Main.class), () -> {
-                    String command = "minecraft:advancement grant " + player.getName() + " only globemc:world/kill_mayor";
+                    String command = "minecraft:advancement grant " + player.getName() + " only globemc:world/kill_leader";
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
                 });
             }
