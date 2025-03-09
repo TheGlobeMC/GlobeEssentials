@@ -12,7 +12,7 @@ import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -22,7 +22,7 @@ public class CompassUI implements Listener {
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
     @EventHandler
-    public void onPlayerCompass(PlayerItemHeldEvent e) {
+    public void onPlayerCompass(PlayerInteractEvent e) {
         Player player = e.getPlayer();
         EntityScheduler scheduler = player.getScheduler();
         ItemStack itemInHand = player.getInventory().getItemInMainHand();
