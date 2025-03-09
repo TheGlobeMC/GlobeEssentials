@@ -16,11 +16,9 @@ import xyz.jpenilla.squaremap.api.PlayerManager;
 
 public class PlayerVisibilityListener implements Listener {
     public PlayerVisibilityListener(Main plugin) {
-        // Make sure to initialize the SquareMap API
-        this.squareMapAPI = (Squaremap) Bukkit.getPluginManager().getPlugin("SquareMap");
+        this.squareMapAPI = (Squaremap) Bukkit.getPluginManager().getPlugin("squaremap");
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
-    // Assuming you have access to SquareMapAPI
     private final Squaremap squareMapAPI;
 
     @EventHandler
@@ -31,18 +29,14 @@ public class PlayerVisibilityListener implements Listener {
 
         // Check if the player is holding a compass in either hand
         if (itemInHand == Material.COMPASS || itemInOffhand == Material.COMPASS) {
-            // Get the SquareMap PlayerManager for player-specific tasks
             PlayerManager playerManager = squareMapAPI.playerManager();
 
             // Here, check if you need to execute tasks based on whether the player is holding a Lodestone Compass or not
             if (isLodestoneCompass(player.getInventory().getItemInMainHand())) {
-                // Schedule the task with Folia's region-specific scheduler
                 Bukkit.getGlobalRegionScheduler().execute(Main.getPlugin(Main.class), () -> {
-                    // Example: Send action bar message when player is holding a Lodestone Compass
                     playerManager.hide(player.getUniqueId());  // Hide the player on the map
                 });
             } else {
-                // If not a Lodestone Compass, show the player again on the map
                 Bukkit.getGlobalRegionScheduler().execute(Main.getPlugin(Main.class), () -> {
                     playerManager.show(player.getUniqueId());  // Show the player on the map
                 });
@@ -51,13 +45,10 @@ public class PlayerVisibilityListener implements Listener {
     }
 
     private boolean isLodestoneCompass(ItemStack item) {
-        // Check if the compass has a Lodestone persistent data key
         if (!item.hasItemMeta()) return false;
-
         PersistentDataContainer dataContainer = item.getItemMeta().getPersistentDataContainer();
         NamespacedKey lodestoneKey = new NamespacedKey("minecraft", "LodestoneTracked");
 
-        // If "LodestoneTracked" key exists and is true, it's a Lodestone compass
         return dataContainer.has(lodestoneKey, PersistentDataType.BYTE)
                 && dataContainer.get(lodestoneKey, PersistentDataType.BYTE) == 1;
     }

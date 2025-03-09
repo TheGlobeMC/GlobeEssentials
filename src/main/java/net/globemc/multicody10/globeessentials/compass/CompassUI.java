@@ -1,6 +1,5 @@
 package net.globemc.multicody10.globeessentials.compass;
 
-import io.papermc.paper.threadedregions.scheduler.EntityScheduler;
 import net.globemc.multicody10.globeessentials.Main;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -12,6 +11,7 @@ import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -24,17 +24,13 @@ public class CompassUI implements Listener {
     @EventHandler
     public void onPlayerCompass(PlayerInteractEvent e) {
         Player player = e.getPlayer();
-        EntityScheduler scheduler = player.getScheduler();
         ItemStack itemInHand = player.getInventory().getItemInMainHand();
         ItemStack itemInOffhand = player.getInventory().getItemInOffHand();
         String actionBarMessage = getActionBarMessage(player, itemInHand);
-        Runnable runnable = () -> player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(actionBarMessage));
-
-        // Check if the item is a compass (either in main hand or offhand)
-        if (itemInHand.getType() == Material.COMPASS || itemInOffhand.getType() == Material.COMPASS) {
-            scheduler.runAtFixedRate(Main.getPlugin(Main.class), t -> {
-                runnable.run();
-            },null,1L,5L);
+        if(e.getAction().equals(Action.RIGHT_CLICK_AIR)){
+            if (itemInHand.getType() == Material.COMPASS || itemInOffhand.getType() == Material.COMPASS) {
+                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(actionBarMessage));
+            }
         }
     }
     private String getActionBarMessage(Player player, ItemStack compass) {
