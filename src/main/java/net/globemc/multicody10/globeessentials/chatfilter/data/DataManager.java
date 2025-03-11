@@ -14,10 +14,10 @@ import java.util.Map;
 import java.util.Set;
 
 public class DataManager {
-    private Main plugin;
+    private final Main plugin;
     private FileConfiguration data;
     private File dataFile;
-    private Map<Player, Boolean> playerList = new HashMap<>();
+    private final Map<Player, Boolean> playerList = new HashMap<>();
 
     public DataManager(Main plugin) {
         this.plugin = plugin;
@@ -26,7 +26,7 @@ public class DataManager {
     }
 
     public Set<Player> getFilterRecipients(Set<Player> recipients) {
-        Boolean filterDefault = plugin.getConfig().getBoolean("settings.filterDefault");
+        boolean filterDefault = plugin.getConfig().getBoolean("settings.filterDefault");
         Set<Player> players = new HashSet<>();
         for (Player player : recipients) {
             if (playerList.containsKey(player)) {
@@ -46,17 +46,13 @@ public class DataManager {
         if (playerList.containsKey(player)) {
             return playerList.get(player);
         }
-        Boolean filterDefault = plugin.getConfig().getBoolean("settings.filterDefault");
-        if (filterDefault) {
-            return true;
-        }
-        return false;
+        return plugin.getConfig().getBoolean("settings.filterDefault");
     }
 
     public void savePlayerFilter(Player player) {
         if (playerList.containsKey(player)) {
             Boolean value = playerList.get(player);
-            data.set(player.getUniqueId().toString() + ".chatFilter", value);
+            data.set(player.getUniqueId() + ".chatFilter", value);
             saveData();
         }
     }
@@ -71,16 +67,14 @@ public class DataManager {
     }
 
     public void loadPlayer(Player player) {
-        if (data.isSet(player.getUniqueId().toString() + ".chatFilter")) {
-            Boolean value = data.getBoolean(player.getUniqueId().toString() + ".chatFilter");
+        if (data.isSet(player.getUniqueId() + ".chatFilter")) {
+            Boolean value = data.getBoolean(player.getUniqueId() + ".chatFilter");
             playerList.put(player, value);
         }
     }
 
     public void removePlayer(Player player) {
-        if (playerList.containsKey(player)) {
-            playerList.remove(player);
-        }
+        playerList.remove(player);
     }
 
     public void saveData() {

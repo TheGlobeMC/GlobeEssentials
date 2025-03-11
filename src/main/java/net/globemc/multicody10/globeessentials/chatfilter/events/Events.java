@@ -17,10 +17,10 @@ import java.util.List;
 import java.util.Set;
 
 public class Events implements Listener {
-    private Main plugin;
-    private Filter chatFilter;
-    private DataManager dataManager;
-    private Spam antiSpam;
+    private final Main plugin;
+    private final Filter chatFilter;
+    private final DataManager dataManager;
+    private final Spam antiSpam;
 
     public Events(Main plugin, Filter chatFilter, DataManager dataManager, Spam antiSpam) {
         this.plugin = plugin;
@@ -75,14 +75,14 @@ public class Events implements Listener {
                 event.getPlayer().hasPermission("chatfilter.bypass")) {
             return;
         }
-        Long chatDelay = (long) plugin.getConfig().getInt("settings.chatDelay") * 1000;
+        long chatDelay = (long) plugin.getConfig().getInt("settings.chatDelay") * 1000;
         if (chatDelay <= 0) {
             return;
         }
         if (antiSpam.hasPlayerChat(event.getPlayer())) {
             Long currentTime = System.currentTimeMillis();
             Long chatTime = antiSpam.getChatTime(event.getPlayer());
-            Double timeLeft = (double) (chatTime - currentTime + chatDelay) / 1000;
+            double timeLeft = (double) (chatTime - currentTime + chatDelay) / 1000;
             if (timeLeft <= 0.00) {
                 antiSpam.addChatPlayer(event.getPlayer());
                 return;
@@ -90,7 +90,7 @@ public class Events implements Listener {
             String chatDelayMessage = plugin.getConfig().getString("settings.chatDelayMessage")
                     .replace("$time", String.valueOf(Math.round(timeLeft * 100.0) / 100.0))
                     .replace("&", "§");
-            if (!chatDelayMessage.equals("")) {
+            if (!chatDelayMessage.isEmpty()) {
                 event.getPlayer().sendMessage(chatDelayMessage);
             }
             event.setCancelled(true);
@@ -104,14 +104,14 @@ public class Events implements Listener {
         if (event.getPlayer().hasPermission("chatfilter.bypass")) {
             return;
         }
-        Long commandDelay = (long) plugin.getConfig().getInt("settings.commandDelay") * 1000;
+        long commandDelay = (long) plugin.getConfig().getInt("settings.commandDelay") * 1000;
         if (commandDelay <= 0) {
             return;
         }
         if (antiSpam.hasPlayerCommand(event.getPlayer())) {
             Long currentTime = System.currentTimeMillis();
             Long commandTime = antiSpam.getCommandTime(event.getPlayer());
-            Double timeLeft = (double) (commandTime - currentTime + commandDelay) / 1000;
+            double timeLeft = (double) (commandTime - currentTime + commandDelay) / 1000;
             if (timeLeft <= 0.00) {
                 antiSpam.addCommandPlayer(event.getPlayer());
                 return;
@@ -119,8 +119,7 @@ public class Events implements Listener {
             String commandDelayMessage = plugin.getConfig().getString("settings.commandDelayMessage")
                     .replace("$time", String.valueOf(Math.round(timeLeft * 100.0) / 100.0))
                     .replace("&", "§");
-            ;
-            if (!commandDelayMessage.equals("")) {
+            if (!commandDelayMessage.isEmpty()) {
                 event.getPlayer().sendMessage(commandDelayMessage);
             }
             event.setCancelled(true);
@@ -140,15 +139,13 @@ public class Events implements Listener {
                 event.setCancelled(true);
                 String advertiseMessage = plugin.getConfig().getString("settings.advertiseMessage")
                         .replace("&", "§");
-                ;
-                if (!advertiseMessage.equals("")) {
+                if (!advertiseMessage.isEmpty()) {
                     event.getPlayer().sendMessage(advertiseMessage);
                 }
                 String advertiseStaff = plugin.getConfig().getString("settings.advertiseStaff")
                         .replace("$player", event.getPlayer().getName())
                         .replace("$message", event.getMessage()).replace("&", "§");
-                ;
-                if (!advertiseStaff.equals("")) {
+                if (!advertiseStaff.isEmpty()) {
                     for (Player player : plugin.getServer().getOnlinePlayers()) {
                         if (player.hasPermission("chatfilter.staff")) {
                             player.sendMessage(advertiseStaff);
@@ -166,17 +163,17 @@ public class Events implements Listener {
             return;
         }
         char[] charArray = event.getMessage().toCharArray();
-        Integer counter = 0;
-        for (int i = 0; i < charArray.length; i++) {
-            if (Character.isUpperCase(charArray[i])) {
+        int counter = 0;
+        for (char c : charArray) {
+            if (Character.isUpperCase(c)) {
                 counter++;
             }
         }
-        Integer capsAmount = plugin.getConfig().getInt("settings.capsAmount");
+        int capsAmount = plugin.getConfig().getInt("settings.capsAmount");
         if (counter >= capsAmount) {
             event.setMessage(event.getMessage().toLowerCase());
             String capsMessage = plugin.getConfig().getString("settings.capsMessage");
-            if (capsMessage != null && !capsMessage.equals("")) {
+            if (capsMessage != null && !capsMessage.isEmpty()) {
                 event.getPlayer().sendMessage(capsMessage.replace("&", "§"));
             }
         }

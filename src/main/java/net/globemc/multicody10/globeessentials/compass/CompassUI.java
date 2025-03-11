@@ -76,8 +76,8 @@ public class CompassUI implements Listener {
     private boolean isLodestoneCompass(ItemStack item) {
         if (!item.hasItemMeta()) return false;
         PersistentDataContainer dataContainer = item.getItemMeta().getPersistentDataContainer();
-        return dataContainer.has(new NamespacedKey("minecraft", "LodestoneTracked"), PersistentDataType.BYTE)
-                && dataContainer.get(new NamespacedKey("minecraft", "LodestoneTracked"), PersistentDataType.BYTE) == 1;
+        return dataContainer.has(new NamespacedKey("minecraft", "lodestone_tracked"), PersistentDataType.BYTE)
+                && dataContainer.get(new NamespacedKey("minecraft", "lodestone_tracked"), PersistentDataType.BYTE) == 1;
     }
     private String getPlayerCoordinates(Player player) {
         return player.getLocation().getBlockX() + " " +

@@ -62,7 +62,7 @@ public final class Main extends JavaPlugin {
         Spam spam = new Spam();
         chatFilterAPI = new ChatFilterAPI(filter, spam, dataManager);
         getServer().getPluginManager().registerEvents(new Events(this, filter, dataManager, spam), this);
-        getCommand("chatfilter").setExecutor(new ChatFilterCommand(this, dataManager, filter));
+        Objects.requireNonNull(getCommand("filter")).setExecutor(new ChatFilterCommand(this, dataManager, filter));
         getLogger().info("Initialized Chat Filter.");
     }
     public ChatFilterAPI getAPI() {

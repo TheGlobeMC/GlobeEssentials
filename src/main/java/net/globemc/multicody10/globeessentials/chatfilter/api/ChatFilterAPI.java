@@ -7,13 +7,11 @@ import org.bukkit.entity.Player;
 
 // The code for this is from Ranull's ChatFilter plugin, so credit where it's due.
 public class ChatFilterAPI {
-    private Filter filter;
-    private Spam spam;
-    private DataManager dataManager;
+    private final Filter filter;
+    private final DataManager dataManager;
 
     public ChatFilterAPI(Filter filter, Spam spam, DataManager dataManager) {
         this.filter = filter;
-        this.spam = spam;
         this.dataManager = dataManager;
     }
 

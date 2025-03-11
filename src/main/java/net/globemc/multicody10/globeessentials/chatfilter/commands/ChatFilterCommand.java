@@ -8,11 +8,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class ChatFilterCommand implements CommandExecutor {
-    private Main plugin;
-    private DataManager data;
-    private Filter filter;
+    private final Main plugin;
+    private final DataManager data;
+    private final Filter filter;
 
     public ChatFilterCommand(Main plugin, DataManager data, Filter filter) {
         this.plugin = plugin;
@@ -21,9 +22,8 @@ public class ChatFilterCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+        if (sender instanceof Player player) {
             String version = "1.5";
             String author = "Ranull (Original), VRILGQD + Multicody10 (Modified)";
 
@@ -42,21 +42,21 @@ public class ChatFilterCommand implements CommandExecutor {
                 return true;
             }
             if (args.length == 1) {
-                if (args[0].toLowerCase().equals("on")) {
+                if (args[0].equalsIgnoreCase("on")) {
                     data.setPlayer(player, true);
                     String filterOn = plugin.getConfig().getString("settings.filterOn").replace("&", "§");
-                    if (!filterOn.equals("")) {
+                    if (!filterOn.isEmpty()) {
                         player.sendMessage(filterOn);
                     }
                 }
-                if (args[0].toLowerCase().equals("off")) {
+                if (args[0].equalsIgnoreCase("off")) {
                     data.setPlayer(player, false);
                     String filterOff = plugin.getConfig().getString("settings.filterOff").replace("&", "§");
-                    if (!filterOff.equals("")) {
+                    if (!filterOff.isEmpty()) {
                         player.sendMessage(filterOff);
                     }
                 }
-                if (args[0].toLowerCase().equals("reload")) {
+                if (args[0].equalsIgnoreCase("reload")) {
                     if (player.hasPermission("globeessentials.reload")) {
                         plugin.reloadConfig();
                         filter.loadWords();

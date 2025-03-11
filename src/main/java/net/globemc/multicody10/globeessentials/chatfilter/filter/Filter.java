@@ -9,11 +9,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class Filter {
-    private Main plugin;
-    private List<String> wordList = new ArrayList<>();
+    private final Main plugin;
+    private final List<String> wordList = new ArrayList<>();
 
     public Filter(Main plugin) {
         this.plugin = plugin;
@@ -22,7 +23,7 @@ public class Filter {
     }
 
     public String filter(String message) {
-        Boolean filterIgnoreCase = plugin.getConfig().getBoolean("settings.filterIgnoreCase");
+        boolean filterIgnoreCase = plugin.getConfig().getBoolean("settings.filterIgnoreCase");
         for (String word : wordList) {
             if (message.toLowerCase().contains(word.toLowerCase())) {
                 if (filterIgnoreCase) {
@@ -39,13 +40,15 @@ public class Filter {
         if (!plugin.getConfig().isConfigurationSection("settings.replaceText")) {
             return message;
         }
-        Boolean replaceIgnoreCase = plugin.getConfig().getBoolean("settings.replaceIgnoreCase");
-        for (String original : plugin.getConfig().getConfigurationSection("settings.replaceText").getKeys(false)) {
+        boolean replaceIgnoreCase = plugin.getConfig().getBoolean("settings.replaceIgnoreCase");
+        for (String original : Objects.requireNonNull(plugin.getConfig().getConfigurationSection("settings.replaceText")).getKeys(false)) {
             if (message.toLowerCase().contains(original.toLowerCase())) {
                 String replace = plugin.getConfig().getString("settings.replaceText." + original);
                 if (replaceIgnoreCase) {
+                    assert replace != null;
                     message = message.replaceAll("(?i)" + original, replace);
                 } else {
+                    assert replace != null;
                     message = message.replaceAll(original, replace);
                 }
                 message = message.replaceAll(original, replace);
@@ -63,13 +66,13 @@ public class Filter {
     }
 
     public String star(Integer size) {
-        String star = "";
-        Integer counter = 0;
+        StringBuilder star = new StringBuilder();
+        int counter = 0;
         while (counter < size) {
-            star += "*";
+            star.append("*");
             counter++;
         }
-        return star;
+        return star.toString();
     }
 
     public void createWords() {
@@ -83,6 +86,7 @@ public class Filter {
         wordList.clear();
         File folder = new File(plugin.getDataFolder(), "words");
         File[] listOfFiles = folder.listFiles();
+        assert listOfFiles != null;
         for (File file : listOfFiles) {
             BufferedReader reader;
             try {

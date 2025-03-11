@@ -8,6 +8,11 @@ website: https://www.globemc.net
 folia-supported: true
 softdepend: [Towny]
 commands:
+  chatfilter:
+    description: ChatFilter info
+    default: true
+    usage: "/chatfilter"
+    aliases: [cf, chat, filter]
   coordinate:
     description: Converts real life coordinates to in-game coordinates.
     usage: "Usage: /<command>"
@@ -28,3 +33,13 @@ commands:
     usage: "Usage: /<command>"
     permission: globeessentials.recipes
     permission-message: You do not have permission to use this command.
+permissions:
+  globeessentials.reload:
+    default: op
+    description: Reload plugin
+  globeessentials.stafffilter:
+    default: op
+    description: Staff messages in ChatFilter
+  globeessentials.bypass:
+    default: false
+    description: Bypass filter

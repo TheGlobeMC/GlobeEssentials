@@ -47,7 +47,7 @@ public class PlayerVisibilityListener implements Listener {
     private boolean isLodestoneCompass(ItemStack item) {
         if (!item.hasItemMeta()) return false;
         PersistentDataContainer dataContainer = item.getItemMeta().getPersistentDataContainer();
-        NamespacedKey lodestoneKey = new NamespacedKey("minecraft", "LodestoneTracked");
+        NamespacedKey lodestoneKey = new NamespacedKey("minecraft", "lodestone_tracked");
 
         return dataContainer.has(lodestoneKey, PersistentDataType.BYTE)
                 && dataContainer.get(lodestoneKey, PersistentDataType.BYTE) == 1;
