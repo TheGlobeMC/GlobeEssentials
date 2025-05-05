@@ -51,7 +51,6 @@ public final class Main extends JavaPlugin {
     void initCompassAPI(){
         getLogger().info("Initializing Compass Mechanics...");
         new CompassNorth(this);
-        new CompassTab(this);
         getLogger().info("Initialized Compass Mechanics.");
     }
 
